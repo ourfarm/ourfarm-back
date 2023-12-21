@@ -53,7 +53,7 @@ def root():
 
 @app.get("/image")
 async def get_image():
-    image_path = "./current.png"
+    image_path = "./current.jpeg"
     return FileResponse(image_path)
 
 @app.get("/score")
@@ -103,6 +103,11 @@ async def get_auto_status():
 @app.get("/ledstatus")
 async def get_led_status():
     return status["led"]
+
+@app.get("/auto/{control}")
+async def auto_off(control: str):
+    status["auto"]=control
+    return control
 
 @app.get("/led/{control}")
 async def led_off(control: str):
