@@ -33,7 +33,7 @@ class FarmData(Base):
 
 Base.metadata.create_all(bind=engine)
 
-status = {'led': 'off', 'auto': 'off'}
+status = {'led': 0, 'auto': 0}
 
 # BackEnd Part
 app = FastAPI()
@@ -106,12 +106,18 @@ async def get_led_status():
 
 @app.get("/auto/{control}")
 async def auto_off(control: str):
-    status["auto"]=control
+    if control=="on":
+        status["auto"]=1
+    else:
+        status["auto"]=0
     return control
 
 @app.get("/led/{control}")
 async def led_off(control: str):
-    status["led"]=control
+    if control=="on":
+        status["led"]=1
+    else:
+        status["led"]=0
     return control
 
 @app.post("/uploadimage")
